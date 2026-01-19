@@ -8,7 +8,7 @@ import com.example.ddd.helper.Entity;
 //                      Domain Expert -> Distilled Knowledge -> 
 //                      Knowledge Crunching    
 //            analysis         --> design                     
-@Entity(identites = {"identity"}, boundedContext="hr" )
+@Entity(identites = { "identity" }, boundedContext = "hr")
 public class Employee {
 	private TcKimlikNo identity;
 	private FullName fullName;

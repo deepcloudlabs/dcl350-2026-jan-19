@@ -11,10 +11,10 @@ class JobStyleTest {
 	@DisplayName("Creating TcKimlikNo through valueOf should fail")
 	@ParameterizedTest
 	@CsvFileSource(resources = "valid-jobstyles.csv")
-	void valueOfCreatesJobStyleSuccessfully(String label,int code,int ordinal) {
+	void valueOfCreatesJobStyleSuccessfully(String label, int code, int ordinal) {
 		var intern = JobStyle.valueOf(label);
-		assertEquals(code,intern.getCode());
-		assertEquals(ordinal,intern.ordinal());
+		assertEquals(code, intern.getCode());
+		assertEquals(ordinal, intern.ordinal());
 	}
 
 }

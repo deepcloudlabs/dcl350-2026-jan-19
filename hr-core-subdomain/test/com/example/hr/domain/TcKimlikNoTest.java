@@ -14,15 +14,14 @@ class TcKimlikNoTest {
 	@CsvFileSource(resources = "valid-tckimlikno.csv")
 	void valueOfCreatesTcKimlikNoSuccessfully(String value) {
 		var identity = TcKimlikNo.valueOf(value);
-		assertEquals(value,identity.getValue());
+		assertEquals(value, identity.getValue());
 	}
-	
-	
+
 	@DisplayName("Creating TcKimlikNo through valueOf should fail")
 	@ParameterizedTest
 	@CsvFileSource(resources = "invalid-tckimlikno.csv")
 	void valueOfThrowsIllegalArgumentException(String value) {
-		assertThrows(IllegalArgumentException.class,() -> TcKimlikNo.valueOf(value));
+		assertThrows(IllegalArgumentException.class, () -> TcKimlikNo.valueOf(value));
 	}
 
 }

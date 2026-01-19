@@ -66,7 +66,7 @@ These projects are maintained as part of DeepCloudLabs training delivery for DCL
 
 ## Kurulum Bilgisi:
 
-Eğitimde lab çalışmaları için gerekli olan çalışma ortamının kurulumu için öncelikle aşağıdaki bağlantıda yer alan sıkıştırılmış dosyayı makinanıza indirmeniz gerekiyor: DEVEL-stage-2025b-java.se.and.spring.zip
+Eğitimde lab çalışmaları için gerekli olan çalışma ortamının kurulumu için öncelikle aşağıdaki bağlantıda yer alan sıkıştırılmış dosyayı makinanıza indirmeniz gerekiyor: [DEVEL-stage-2025b-java.se.and.spring.zip](https://courseware.deepcloudlabs.com/software/DEVEL-stage-2025b-java.se.and.spring.zip)
 
 Sıkıştırılmış dosyayı **C:\\** dizinine açtıktan sonra dizin yapısı aşağıda gösterildiği şekilde olacaktır:
 

@@ -148,6 +148,7 @@ public class Employee {
 	@BusinessMethod
 	public void promote(Rate rate,Department department) {
 		var newSalary = salary.multiplies(rate);
+		@SuppressWarnings("unused")
 		var existingDepartments = departments.getDepartments();
 		departments.addDepartment(department);
 		// TODO: Apply Memento pattern

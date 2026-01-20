@@ -1,6 +1,5 @@
 package com.example.hr.domain;
 
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Objects;
 

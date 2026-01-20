@@ -2,7 +2,7 @@ package com.example.hr.domain;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.WeakHashMap;
 
 import com.example.ddd.helper.ValueObject;
 
@@ -10,7 +10,7 @@ import com.example.ddd.helper.ValueObject;
 @ValueObject(boundedContext = "hr", factoryMethod = "valueOf")
 public final class TcKimlikNo {
 	private final String value;
-	private static final Map<String, TcKimlikNo> pool = new ConcurrentHashMap<>();
+	private static final Map<String, TcKimlikNo> pool = new WeakHashMap<>();
 
 	private TcKimlikNo(String value) {
 		this.value = value;

@@ -20,7 +20,7 @@ class EmployeeTest {
 				              .email(email)
 				              .jobStyle(jobStyle)
 				              .photo(photo)
-				              .departments(departments.split(":"))
+				              .departmentList(departments.split(":"))
 				              .build();
 		assertAll(
 		    () -> assertEquals(identity,emp.getIdentity().getValue()),

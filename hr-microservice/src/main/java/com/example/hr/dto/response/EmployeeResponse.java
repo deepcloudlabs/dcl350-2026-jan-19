@@ -6,6 +6,8 @@ import com.example.constraints.Iban;
 import com.example.constraints.TcKimlikNo;
 import com.example.hexagonal.helper.DataTransferObject;
 import com.example.hexagonal.helper.TransferDirectionType;
+import com.example.hr.domain.Department;
+import com.example.hr.domain.Employee;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -33,4 +35,19 @@ public record EmployeeResponse(@TcKimlikNo
 		@NotBlank
 		String jobStyle, 
 		List<String> departments) {
+
+	public static EmployeeResponse fromEmployee(Employee employee) {
+		return new EmployeeResponse(
+				employee.getIdentity().getValue(),
+				employee.getFullName().firstName(),
+				employee.getFullName().lastName(),
+				employee.getIban().getValue(),
+				employee.getSalary().value(),
+				employee.getSalary().currency().name(),
+				employee.getEmail().value(),
+				employee.getBirthYear().value(),
+				employee.getJobStyle().name(),
+				employee.getDepartmentList().getDepartments().stream().map(Department::name).toList()
+		);
+	}
 }

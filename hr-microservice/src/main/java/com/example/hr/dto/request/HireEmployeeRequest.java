@@ -6,6 +6,8 @@ import com.example.constraints.Iban;
 import com.example.constraints.TcKimlikNo;
 import com.example.hexagonal.helper.DataTransferObject;
 import com.example.hexagonal.helper.TransferDirectionType;
+import com.example.hr.domain.Department;
+import com.example.hr.domain.Employee;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -33,8 +35,21 @@ public record HireEmployeeRequest(
 		int birthYear, 
 		@NotBlank
 		String jobStyle, 
-		List<String> departments,		
+		List<String> departmentList,		
 		String photo
 ) {
+
+	public Employee toEmployee() {
+		return new Employee.Builder(identity)
+	              .fullName(firstName, lastName)
+	              .salary(salary, currency)
+	              .iban(iban)
+	              .birthYear(birthYear)
+	              .email(email)
+	              .jobStyle(jobStyle)
+	              .photo(photo)
+	              .departmentList(departmentList.toArray(new Department[0]))
+	              .build();		
+	}
 
 }

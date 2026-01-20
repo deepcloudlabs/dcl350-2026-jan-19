@@ -23,7 +23,7 @@ public class Employee {
 	private Email email;
 	private BirthYear birthYear;
 	private JobStyle jobStyle;
-	private DepartmentList departments;
+	private DepartmentList departmentList;
 	private Photo photo;
 
 	private Employee(Builder builder) {
@@ -34,7 +34,7 @@ public class Employee {
 		this.email = builder.email;
 		this.birthYear = builder.birthYear;
 		this.jobStyle = builder.jobStyle;
-		this.departments = builder.departments;
+		this.departmentList = builder.departmentList;
 		this.photo = builder.photo;
 	}
 
@@ -46,7 +46,7 @@ public class Employee {
 		private Email email;
 		private BirthYear birthYear;
 		private JobStyle jobStyle;
-		private DepartmentList departments;
+		private DepartmentList departmentList;
 		private Photo photo;
 
 		public Builder(String identity) {
@@ -93,15 +93,15 @@ public class Employee {
 			return this;
 		}
 
-		public Builder departments(String... workingDepartments) {
-			this.departments = new DepartmentList.Builder().departments(
+		public Builder departmentList(String... workingDepartments) {
+			this.departmentList = new DepartmentList.Builder().departments(
 					Arrays.stream(workingDepartments).map(Department::valueOf).toList().toArray(new Department[0]))
 					.build();
 			return this;
 		}
 
-		public Builder departments(Department... workingDepartments) {
-			this.departments = new DepartmentList.Builder().departments(workingDepartments).build();
+		public Builder departmentList(Department... workingDepartments) {
+			this.departmentList = new DepartmentList.Builder().departments(workingDepartments).build();
 			return this;
 		}
 
@@ -120,7 +120,7 @@ public class Employee {
 			// Invariants
 			// Policies
 			// POLICY-442
-			if (departments.contains(Department.IT) && jobStyle == JobStyle.FULL_TIME
+			if (departmentList.contains(Department.IT) && jobStyle == JobStyle.FULL_TIME
 					&& salary.greaterThanOrEqual(MIN_SALARY.multiplies(5.0)))
 				throw new IllegalArgumentException("POLICY-442 is violated.");
 			// Regulations
@@ -136,7 +136,7 @@ public class Employee {
 		// Invariants
 		// Policies
 		// POLICY-442
-		if (departments.contains(Department.IT) && jobStyle == JobStyle.FULL_TIME
+		if (departmentList.contains(Department.IT) && jobStyle == JobStyle.FULL_TIME
 				&& newSalary.greaterThanOrEqual(MIN_SALARY.multiplies(5.0)))
 			throw new IllegalArgumentException("POLICY-442 is violated.");
 		// Regulations
@@ -149,14 +149,14 @@ public class Employee {
 	public void promote(Rate rate,Department department) {
 		var newSalary = salary.multiplies(rate);
 		@SuppressWarnings("unused")
-		var existingDepartments = departments.getDepartments();
-		departments.addDepartment(department);
+		var existingDepartments = departmentList.getDepartments();
+		departmentList.addDepartment(department);
 		// TODO: Apply Memento pattern
 		// Validation Rules
 		// Invariants
 		// Policies
 		// POLICY-442
-		if (departments.contains(Department.IT) && jobStyle == JobStyle.FULL_TIME
+		if (departmentList.contains(Department.IT) && jobStyle == JobStyle.FULL_TIME
 				&& newSalary.greaterThanOrEqual(MIN_SALARY.multiplies(5.0)))
 			throw new IllegalArgumentException("POLICY-442 is violated.");
 		// Regulations
@@ -220,12 +220,12 @@ public class Employee {
 		this.jobStyle = jobStyle;
 	}
 
-	public DepartmentList getDepartments() {
-		return departments;
+	public DepartmentList getDepartmentList() {
+		return departmentList;
 	}
 
-	public void setDepartments(DepartmentList departments) {
-		this.departments = departments;
+	public void setDepartmentList(DepartmentList departmentList) {
+		this.departmentList = departmentList;
 	}
 
 	public Photo getPhoto() {
@@ -257,7 +257,7 @@ public class Employee {
 	public String toString() {
 		return "Employee [identity=" + identity + ", fullName=" + fullName + ", iban=" + iban + ", salary=" + salary
 				+ ", email=" + email + ", birthYear=" + birthYear + ", jobStyle=" + jobStyle + ", departments="
-				+ departments + "]";
+				+ departmentList + "]";
 	}
 	
 	

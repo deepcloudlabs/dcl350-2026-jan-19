@@ -22,7 +22,7 @@ public class DepartmentList {
 		}
 
 		public Builder departments(Department... workingDepartments) {
-			Objects.requireNonNull(departments);
+			Objects.requireNonNull(workingDepartments);
 			this.departments = new ArrayList<>();
 			for (var department : workingDepartments)
 				this.departments.add(department);
@@ -82,6 +82,11 @@ public class DepartmentList {
 			throw new IllegalArgumentException("BR-236: You must provide at least one department!");
 		departments.remove(department);
 		return getDepartments();
+	}
+
+	public boolean contains(Department department) {
+		Objects.requireNonNull(department);
+		return departments.contains(department);
 	}
 
 }

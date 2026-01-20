@@ -17,6 +17,8 @@ import com.example.hr.dto.response.HireEmployeeResponse;
 
 @Service
 public class HrService {
+	private static final String EMPLOYEES_CACHE = "employees";
+
 	private final HrApplication hrApplication;
 
 	public HrService(HrApplication hrApplication) {
@@ -31,26 +33,25 @@ public class HrService {
 	}
 
 	@Transactional
-	@CacheEvict(key = "#identity")
+	@CacheEvict(cacheNames = EMPLOYEES_CACHE, key = "#identity")
 	public EmployeeResponse fireEmployee(String identity) {
-		var firedEmployee = hrApplication.fireEmployee(TcKimlikNo.valueOf(identity))
-				.orElseThrow(() -> new IllegalArgumentException("No such employee (%s) to fire.".formatted(identity)));
+		var firedEmployee = hrApplication.fireEmployee(toTcKimlikNo(identity))
+				.orElseThrow(() -> notFound(identity, "fire"));
 		return EmployeeResponse.fromEmployee(firedEmployee);
 	}
 
 	@Transactional
+	@CacheEvict(cacheNames = EMPLOYEES_CACHE, key = "#identity")
 	public EmployeeResponse increaseSalary(String identity, IncreaseSalaryRequest request) {
-		var employee = hrApplication.increaseSalary(TcKimlikNo.valueOf(identity), new Rate(request.rate()))
-				.orElseThrow(() -> new IllegalArgumentException("No such employee (%s) to fire.".formatted(identity)));
-		return EmployeeResponse.fromEmployee(employee);
+		var updatedEmployee = hrApplication.increaseSalary(toTcKimlikNo(identity), new Rate(request.rate()))
+				.orElseThrow(() -> notFound(identity, "increase salary for"));
+		return EmployeeResponse.fromEmployee(updatedEmployee);
 	}
 
 	@Transactional(readOnly = true)
-	@Cacheable(cacheNames = "employees", key = "#identity")
+	@Cacheable(cacheNames = EMPLOYEES_CACHE, key = "#identity")
 	public EmployeeResponse getEmployee(String identity) {
-		Employee employee = hrApplication.getEmployee(TcKimlikNo.valueOf(identity)).orElseThrow(
-				() -> new IllegalArgumentException("No such employee (%s) to get photo.".formatted(identity)));
-		return EmployeeResponse.fromEmployee(employee);
+		return EmployeeResponse.fromEmployee(getEmployeeOrThrow(identity, "get"));
 	}
 
 	@Transactional(readOnly = true)
@@ -60,4 +61,15 @@ public class HrService {
 		return new EmployeePhotoResponse(identity, employee.getPhoto().toBase64());
 	}
 
+	private Employee getEmployeeOrThrow(String identity, String action) {
+		return hrApplication.getEmployee(toTcKimlikNo(identity)).orElseThrow(() -> notFound(identity, action));
+	}
+
+	private TcKimlikNo toTcKimlikNo(String identity) {
+		return TcKimlikNo.valueOf(identity);
+	}
+
+	private IllegalArgumentException notFound(String identity, String action) {
+		return new IllegalArgumentException("No such employee (%s) to %s.".formatted(identity, action));
+	}
 }

@@ -2,6 +2,7 @@ package com.example.hr.application.business;
 
 import java.util.Optional;
 
+import com.example.hexagonal.helper.Application;
 import com.example.hr.application.HrApplication;
 import com.example.hr.application.business.event.EmployeeFiredEvent;
 import com.example.hr.application.business.event.EmployeeHiredEvent;

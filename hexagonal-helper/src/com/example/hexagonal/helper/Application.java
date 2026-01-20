@@ -1,4 +1,4 @@
-package com.example.hr.application.business;
+package com.example.hexagonal.helper;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

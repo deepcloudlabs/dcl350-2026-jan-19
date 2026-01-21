@@ -63,7 +63,7 @@ public class EmployeeRepositoryMongoAdapter implements EmployeeRepository {
 	              .email(document.getEmail())
 	              .jobStyle(document.getJobStyle())
 	              .photo(document.getPhoto())
-	              .departmentList(document.getDepartmentList().toArray(new Department[0]))
+	              .departmentList(document.getDepartmentList().stream().map(Department::valueOf).toList().toArray(new Department[0]))
 	              .build();
 	}
 	

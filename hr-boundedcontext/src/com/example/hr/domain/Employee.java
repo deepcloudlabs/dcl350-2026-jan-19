@@ -121,7 +121,7 @@ public class Employee {
 			// Policies
 			// POLICY-442
 			if (departmentList.contains(Department.IT) && jobStyle == JobStyle.FULL_TIME
-					&& salary.greaterThanOrEqual(MIN_SALARY.multiplies(5.0)))
+					&& salary.lessThanOrEqual(MIN_SALARY.multiplies(5.0)))
 				throw new IllegalArgumentException("POLICY-442 is violated.");
 			// Regulations
 			// Business Rule
@@ -137,7 +137,7 @@ public class Employee {
 		// Policies
 		// POLICY-442
 		if (departmentList.contains(Department.IT) && jobStyle == JobStyle.FULL_TIME
-				&& newSalary.greaterThanOrEqual(MIN_SALARY.multiplies(5.0)))
+				&& newSalary.lessThanOrEqual(MIN_SALARY.multiplies(5.0)))
 			throw new IllegalArgumentException("POLICY-442 is violated.");
 		// Regulations
 		// Business Rule
@@ -157,7 +157,7 @@ public class Employee {
 		// Policies
 		// POLICY-442
 		if (departmentList.contains(Department.IT) && jobStyle == JobStyle.FULL_TIME
-				&& newSalary.greaterThanOrEqual(MIN_SALARY.multiplies(5.0)))
+				&& newSalary.lessThanOrEqual(MIN_SALARY.multiplies(5.0)))
 			throw new IllegalArgumentException("POLICY-442 is violated.");
 		// Regulations
 		// Business Rule

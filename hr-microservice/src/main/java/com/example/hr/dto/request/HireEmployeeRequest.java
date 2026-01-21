@@ -19,9 +19,9 @@ import jakarta.validation.constraints.Size;
 public record HireEmployeeRequest(
 		@TcKimlikNo
 		String identity, 
-		@Size(min = 2)
+		@Size(min = 2, max=50)
 		String firstName, 
-		@Size(min = 2)
+		@Size(min = 2, max=50)
 		String lastName, 
 		@Iban
 		String iban,
@@ -48,7 +48,7 @@ public record HireEmployeeRequest(
 	              .email(email)
 	              .jobStyle(jobStyle)
 	              .photo(photo)
-	              .departmentList(departmentList.toArray(new Department[0]))
+	              .departmentList(departmentList.stream().map(Department::valueOf).toList().toArray(new Department[0]))
 	              .build();		
 	}
 

@@ -19,8 +19,8 @@ public record Salary(double value, FiatCurrency currency) {
 		return new Salary(value, FiatCurrency.TL);
 	}
 
-	public boolean greaterThanOrEqual(Salary minSalary) {
-		return value > minSalary.value;
+	public boolean greaterThanOrEqual(Salary salary) {
+		return value > salary.value;
 	}
 
 	public Salary multiplies(double scale) {
@@ -29,5 +29,10 @@ public record Salary(double value, FiatCurrency currency) {
 
 	public Salary multiplies(Rate rate) {
 		return new Salary(value*(1.0+rate.value()/100), currency);
+	}
+
+	public boolean lessThanOrEqual(Salary salary) {
+		return value < salary.value;
+
 	}
 }

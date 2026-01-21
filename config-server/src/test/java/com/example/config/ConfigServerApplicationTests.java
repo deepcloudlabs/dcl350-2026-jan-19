@@ -1,10 +1,10 @@
-package com.example.lottery;
+package com.example.config;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LotteryMicroserviceApplicationTests {
+class ConfigServerApplicationTests {
 
 	@Test
 	void contextLoads() {

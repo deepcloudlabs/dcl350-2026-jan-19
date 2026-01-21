@@ -1,7 +1,5 @@
 package com.example.hr.service;
 
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -14,6 +12,7 @@ import com.example.hr.domain.TcKimlikNo;
 import com.example.hr.dto.request.HireEmployeeRequest;
 import com.example.hr.dto.request.IncreaseSalaryRequest;
 import com.example.hr.dto.response.EmployeePhotoResponse;
+import com.example.hr.dto.response.EmployeeQLResponse;
 import com.example.hr.dto.response.EmployeeResponse;
 import com.example.hr.dto.response.HireEmployeeResponse;
 
@@ -53,7 +52,6 @@ public class HrService {
 	@Transactional(readOnly = true)
 	@Cacheable(cacheNames = EMPLOYEES_CACHE, key = "#identity")
 	public EmployeeResponse getEmployee(String identity) {
-		try {TimeUnit.SECONDS.sleep(5);} catch (InterruptedException e) {}
 		return EmployeeResponse.fromEmployee(getEmployeeOrThrow(identity, "get"));
 	}
 
@@ -74,5 +72,10 @@ public class HrService {
 
 	private IllegalArgumentException notFound(String identity, String action) {
 		return new IllegalArgumentException("No such employee (%s) to %s.".formatted(identity, action));
+	}
+
+	@Transactional(readOnly = true)
+	public EmployeeQLResponse findEmployeeByIdentity(String identity) {
+		return EmployeeQLResponse.fromEmployee(getEmployeeOrThrow(identity, "get"));
 	}
 }

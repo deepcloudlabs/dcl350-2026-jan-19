@@ -29,7 +29,7 @@ public class WebSocketHrClientService implements WebSocketHandler{
 
 	@Override
 	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-		System.err.println("Hr Event has arrived: %s".formatted(message.getPayload()));
+		System.err.println("[%s] New Hr Event has been received from WebSocket server: %s".formatted(Thread.currentThread().getName(),message.getPayload()));
 	}
 
 	@Override

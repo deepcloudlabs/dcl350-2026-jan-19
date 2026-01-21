@@ -67,10 +67,18 @@ public class EmployeeDocument {
 	}
 
 	
-	public EmployeeDocument(@NotBlank String identity, @NotBlank @Size(min = 2, max = 50) String firstName,
-			@NotBlank @Size(min = 2, max = 50) String lastName, @NotBlank String iban,
-			@DecimalMin("30000.0") double salary, @NotBlank String currency, @NotBlank @Email String email,
-			@Max(2010) int birthYear, @NotBlank String jobStyle, @NotNull List<String> departmentList, String photo) {
+	public EmployeeDocument(
+			@NotBlank String identity, 
+			@NotBlank @Size(min = 2, max = 50) String firstName,
+			@NotBlank @Size(min = 2, max = 50) String lastName, 
+			@NotBlank String iban,
+			@DecimalMin("30000.0") double salary, 
+			@NotBlank String currency, 
+			@NotBlank @Email String email,
+			@Max(2010) int birthYear, 
+			@NotBlank String jobStyle, 
+			@NotNull List<String> departmentList, 
+			String photo) {
 		this.identity = identity;
 		this.firstName = firstName;
 		this.lastName = lastName;

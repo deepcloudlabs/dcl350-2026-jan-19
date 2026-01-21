@@ -1,5 +1,7 @@
 package com.example.hr.service;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,7 @@ public class HrService {
 	@Transactional(readOnly = true)
 	@Cacheable(cacheNames = EMPLOYEES_CACHE, key = "#identity")
 	public EmployeeResponse getEmployee(String identity) {
+		try {TimeUnit.SECONDS.sleep(5);} catch (InterruptedException e) {}
 		return EmployeeResponse.fromEmployee(getEmployeeOrThrow(identity, "get"));
 	}
 

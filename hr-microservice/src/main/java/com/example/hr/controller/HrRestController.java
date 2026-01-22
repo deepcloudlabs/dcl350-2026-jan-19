@@ -1,6 +1,5 @@
 package com.example.hr.controller;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,7 +47,6 @@ public class HrRestController {
 	}
 
 	@PutMapping("/{identity}")
-	@Transactional
 	public EmployeeResponse increaseSalary(@PathVariable @Validated @TcKimlikNo String identity, @RequestBody @Validated IncreaseSalaryRequest request) {
 		return hrService.increaseSalary(identity,request);
 

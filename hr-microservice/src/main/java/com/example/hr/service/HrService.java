@@ -3,6 +3,7 @@ package com.example.hr.service;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +43,7 @@ public class HrService {
 		return EmployeeResponse.fromEmployee(firedEmployee);
 	}
 
-	@Transactional(propagation = Propagation.NEVER)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@CacheEvict(cacheNames = EMPLOYEES_CACHE, key = "#identity")
 	public EmployeeResponse increaseSalary(String identity, IncreaseSalaryRequest request) {
 		var updatedEmployee = hrApplication.increaseSalary(toTcKimlikNo(identity), new Rate(request.rate()))

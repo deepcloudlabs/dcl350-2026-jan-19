@@ -1,9 +1,9 @@
 package com.example.hr.service;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.event.EventListener;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import com.example.hr.application.business.event.HrEvent;
@@ -12,23 +12,22 @@ import com.example.hr.domain.TcKimlikNo;
 import tools.jackson.databind.ObjectMapper;
 
 @Service
-@ConditionalOnProperty(name="messaging", havingValue = "kafka")
-public class HrEventKafkaPublisherService {
+@ConditionalOnProperty(name = "messaging", havingValue = "amqp")
+public class HrEventRabbitPublisherService {
 	private final ObjectMapper objectMapper;
-	private final KafkaTemplate<String,String> kafkaTemplate;
-	private final String topicName;
-	
-	public HrEventKafkaPublisherService(ObjectMapper objectMapper, 
-			KafkaTemplate<String, String> kafkaTemplate, 
-			@Value("${topicName}") String topicName) {
+	private final RabbitTemplate rabbitTemplate;
+	private final String exchangeName;
+
+	public HrEventRabbitPublisherService(ObjectMapper objectMapper, RabbitTemplate rabbitTemplate,
+			@Value("${exchangeName}") String exchangeName) {
 		this.objectMapper = objectMapper;
-		this.kafkaTemplate = kafkaTemplate;
-		this.topicName = topicName;
+		this.rabbitTemplate = rabbitTemplate;
+		this.exchangeName = exchangeName;
 	}
 
 	@EventListener
 	public void listenHrEvents(HrEvent<TcKimlikNo> event) {
 		var eventAsJson = objectMapper.writeValueAsString(event);
-		kafkaTemplate.send(topicName, event.getIdentity().getValue(), eventAsJson);
+		rabbitTemplate.convertAndSend(exchangeName, "", eventAsJson);
 	}
 }

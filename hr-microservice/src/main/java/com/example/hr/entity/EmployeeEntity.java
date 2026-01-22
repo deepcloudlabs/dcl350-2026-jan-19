@@ -18,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -74,7 +75,7 @@ public class EmployeeEntity {
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
 	private byte[] photo;
-
+	
 	public EmployeeEntity() {
 	}
 
@@ -190,6 +191,7 @@ public class EmployeeEntity {
 	public void setJobStyle(JobStyle jobStyle) {
 		this.jobStyle = jobStyle;
 	}
+
 
 	@Override
 	public int hashCode() {

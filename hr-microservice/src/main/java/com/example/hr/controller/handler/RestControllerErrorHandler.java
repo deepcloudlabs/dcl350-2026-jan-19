@@ -35,7 +35,7 @@ public class RestControllerErrorHandler {
 	@ExceptionHandler(IllegalArgumentException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorResponse handleIllegalArgumentException(IllegalArgumentException e) {
-		return new ErrorResponse(e.getMessage(),e.getCause().toString());
+		return new ErrorResponse(e.getMessage(),e.getMessage());
 	}
 	
 

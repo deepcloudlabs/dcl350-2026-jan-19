@@ -61,7 +61,7 @@ public class EmployeeEntity {
 	@Column(name = "byear")
 	private int birthYear;
 
-	@NotBlank
+	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private JobStyle jobStyle;
 
@@ -78,10 +78,17 @@ public class EmployeeEntity {
 	public EmployeeEntity() {
 	}
 
-	public EmployeeEntity(@NotBlank String identity, @NotBlank @Size(min = 2, max = 50) String firstName,
-			@NotBlank @Size(min = 2, max = 50) String lastName, @NotBlank String iban,
-			@DecimalMin("30000.0") double salary, @NotBlank String currency, @NotBlank @Email String email,
-			@Max(2010) int birthYear, @NotBlank JobStyle jobStyle, @NotNull List<Department> departmentList,
+	public EmployeeEntity(
+			@NotBlank String identity, 
+			@NotBlank @Size(min = 2, max = 50) String firstName,
+			@NotBlank @Size(min = 2, max = 50) String lastName, 
+			@NotBlank String iban,
+			@DecimalMin("30000.0") double salary, 
+			@NotBlank String currency, 
+			@NotBlank @Email String email,
+			@Max(2010) int birthYear, 
+			@NotBlank JobStyle jobStyle, 
+			@NotNull List<Department> departmentList,
 			byte[] photo) {
 		this.identity = identity;
 		this.firstName = firstName;

@@ -2,6 +2,7 @@ package com.example.hr.adapter;
 
 import java.util.Optional;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import com.example.hr.repository.EmployeeRepository;
 
 @Repository
 @Adapter(adaptee = EmployeeDocumentRepository.class)
+@ConditionalOnProperty(name="persistence", havingValue = "useMongo")
 public class EmployeeRepositoryMongoAdapter implements EmployeeRepository {
 	private final EmployeeDocumentRepository employeeDocumentRepository;
 
@@ -81,6 +83,5 @@ public class EmployeeRepositoryMongoAdapter implements EmployeeRepository {
 				employee.getDepartmentList().getDepartments().stream().map(Department::name).toList(),
 				employee.getPhoto().toBase64()
 			);
-
 	}
 }

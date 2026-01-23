@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +16,9 @@ public class SampleRestController {
 
 	@GetMapping(params= {"name"})
 	//@RateLimiter(name="sampleRestController")
-	//@Bulkhead(type = Type.SEMAPHORE, name = "sampleRestController")
-	public String getMessage(@RequestParam String name) {
+	@Bulkhead(type = Type.SEMAPHORE, name = "sampleRestController")
+	public String getMessage(@RequestParam String name) throws InterruptedException {
+		TimeUnit.MILLISECONDS.sleep(100);
 		return "[%s] Hello, %s!".formatted(Thread.currentThread().getName(),name);
 	}
 }

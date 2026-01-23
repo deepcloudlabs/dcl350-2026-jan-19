@@ -11,7 +11,7 @@ public class BusinessService {
 		this.integrationService = integrationService;
 	}
 
-	//@Scheduled(fixedRate = 3_000)
+	//@Scheduled(fixedRate = 1)
 	public void remoteCall() {
 		var result = integrationService.fun();
 		System.out.println("fun: result is %d".formatted(result));
@@ -23,8 +23,15 @@ public class BusinessService {
 		System.out.println("gun: result is %d".formatted(result));
 	}
 	
-	@Scheduled(fixedRate = 10_000)
+	//@Scheduled(fixedRate = 10_000)
 	public void remoteCall3() {
-		integrationService.sun().thenAcceptAsync( result -> System.out.println("sun: result is %d".formatted(result)));
+		integrationService.sun()
+		                   .thenAcceptAsync( result -> System.out.println("sun: result is %d".formatted(result)));
+	}
+	
+	@Scheduled(fixedRate = 1)
+	public void remoteCall4() {
+		var result = integrationService.run();
+		System.out.println("fun: result is %d".formatted(result));
 	}
 }

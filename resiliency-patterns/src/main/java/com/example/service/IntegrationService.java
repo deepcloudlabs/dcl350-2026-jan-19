@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Service;
 
@@ -13,14 +14,15 @@ import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 
 @Service
 public class IntegrationService {
-
+	private static final AtomicInteger counter = new AtomicInteger();
+	
 	@Retry(name = "integrationService",fallbackMethod = "funFallback")
-	@RateLimiter(name="integrationService2")
+	@RateLimiter(name="integrationService2",fallbackMethod = "funFallback")
 	public int fun() {
-		try {TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {}
-		if(ThreadLocalRandom.current().nextInt(10)<8)
-			throw new IllegalStateException("Something is wrong!");
-		return 42;
+		try {TimeUnit.MILLISECONDS.sleep(10);} catch (InterruptedException e) {}
+//		if(ThreadLocalRandom.current().nextInt(10)<9)
+//			throw new IllegalStateException("Something is wrong!");
+		return counter.getAndIncrement();
 	}
 	
 	// 1. Default Value
@@ -39,9 +41,9 @@ public class IntegrationService {
 		return 3615;
 	}
 	
-	@CircuitBreaker(name="integrationService3")
+	@CircuitBreaker(name="integrationService3",fallbackMethod = "runFallback")
 	public int run() {
-		if(ThreadLocalRandom.current().nextInt(10)<7)
+		if(ThreadLocalRandom.current().nextInt(10)<2)
 			throw new IllegalStateException("Something is wrong!");		
 		return 3;
 	}
@@ -62,4 +64,10 @@ public class IntegrationService {
 			return 549;
 		});
 	}
+	
+	public int runFallback(Throwable t) {
+		System.err.println(t.getMessage());
+		return 3615;
+	}
+
 }

@@ -2,7 +2,6 @@ package com.example.hr.service;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,8 @@ import com.example.hr.domain.TcKimlikNo;
 import tools.jackson.databind.ObjectMapper;
 
 @Service
-@ConditionalOnProperty(name = "messaging", havingValue = "amqp")
+//@ConditionalOnProperty(name = "messaging", havingValue = "amqp")
+//@ConditionalOnProperty(name = "messaging", havingValue = "amqp-kafka")
 public class HrEventRabbitPublisherService {
 	private final ObjectMapper objectMapper;
 	private final RabbitTemplate rabbitTemplate;

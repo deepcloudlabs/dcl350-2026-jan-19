@@ -14,7 +14,7 @@ public class HrRestConsumer {
 		this.restTemplate = restTemplate;
 	}
 
-	@Scheduled(fixedRate = 5_000)
+	//@Scheduled(fixedRate = 5_000)
 	public void callHrService() {
 		var employee = restTemplate.getForObject("http://localhost:2026/hr/api/v1/employees/89284227136", EmployeeResponse.class);
 		System.out.println(employee);

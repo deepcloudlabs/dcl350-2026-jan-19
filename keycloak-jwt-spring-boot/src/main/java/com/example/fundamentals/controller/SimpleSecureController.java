@@ -8,10 +8,10 @@ import com.example.fundamentals.service.BusinessService;
 import java.security.Principal;
 
 @RestController
-public class HelloController {
+public class SimpleSecureController {
 	private final BusinessService businessService;
 	
-    public HelloController(BusinessService businessService) {
+    public SimpleSecureController(BusinessService businessService) {
 		this.businessService = businessService;
 	}
 

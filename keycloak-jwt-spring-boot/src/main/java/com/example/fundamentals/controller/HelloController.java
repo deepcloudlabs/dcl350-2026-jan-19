@@ -2,18 +2,26 @@ package com.example.fundamentals.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.fundamentals.service.BusinessService;
+
 import java.security.Principal;
 
 @RestController
 public class HelloController {
+	private final BusinessService businessService;
+	
+    public HelloController(BusinessService businessService) {
+		this.businessService = businessService;
+	}
 
-    @GetMapping("/public")
+	@GetMapping("/public")
     public String publicEndpoint() {
         return "This is a public endpoint.";
     }
 
     @GetMapping("/secure")
     public String secureEndpoint(Principal principal) {
-        return "Hello, " + principal + ". This is a secured endpoint.";
+        return "[%s] This is a secured endpoint: %d".formatted(principal,businessService.fun());
     }
 }

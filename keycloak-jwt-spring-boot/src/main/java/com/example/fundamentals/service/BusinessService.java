@@ -1,13 +1,12 @@
 package com.example.fundamentals.service;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-
-import jakarta.annotation.security.RolesAllowed;
 
 @Service
 public class BusinessService {
 
-	@RolesAllowed("WEBADMIN")
+	@PreAuthorize("hasRole('WEBADMIN')")
 	public int fun() {
 		
 		return 42;

@@ -27,7 +27,7 @@ public class CrmReactiveRestController {
 		this.crmReactiveService = crmReactiveService;
 	}
 
-	// Query
+	// Query Responsibilities -> Read Model
 	@GetMapping("{identity}")
 	public Mono<Customer> getCustomerByIdentity(@PathVariable String identity){
 		return crmReactiveService.findById(identity);
@@ -38,7 +38,7 @@ public class CrmReactiveRestController {
 		return crmReactiveService.findAllByPage(pageNo,pageSize);
 	}
 	
-	// Command
+	// Command Responsibilities -> Write Model
 	@PostMapping
 	public Mono<Customer> acquireCustomer(@RequestBody Customer customer){
 		return crmReactiveService.acquire(customer);
